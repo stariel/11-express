@@ -1,6 +1,8 @@
 'use strict';
 
-const router = require('../lib/router.js');
+import express from 'express';
+const router = express.Router();
+
 const Notes = require('../models/notes.js');
 
 /**
@@ -58,4 +60,4 @@ router.post('/api/v1/notes', (req,res) => {
 
 });
 
-module.exports = {};
+export default router;
