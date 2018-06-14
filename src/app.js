@@ -6,7 +6,7 @@ let app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-import router from './lib/router.js';
+import router from './api/api.js';
 app.use(router);
 
 let isRunning = false;
