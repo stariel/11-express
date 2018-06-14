@@ -3,13 +3,12 @@
 import storage from '../lib/storage/data-store.js';
 import uuid from 'uuid/v1';
 
-class Note{
+class Cat{
 
   constructor(config) {
     this.id = uuid();
-    this.createdOn = new Date();
-    this.title = config && config.title || '';
-    this.content = config && config.content || '';
+    this.name = config && config.name || '';
+    this.age = config && config.age || '';
   }
 
   save() {
@@ -34,4 +33,4 @@ class Note{
 
 }
 
-export default Note;
+export default Cat;
