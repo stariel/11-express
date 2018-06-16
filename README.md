@@ -1,4 +1,4 @@
-![cf](https://i.imgur.com/7v5ASc8.png) 11: Express and Babel
+[![Build Status](https://travis-ci.com/stariel/11-express.svg?branch=master)](https://travis-ci.com/stariel/11-express)
 ======
 
 ### Submission Instructions
@@ -14,6 +14,7 @@
    * link to your pull request
    * link to your build at travis-ci URL
    * Heroku Server URL
+    https://aa-11-express.herokuapp.com/
  
  ## Configuration 
  Configure the root of your repository with the following files and directories. Thoughfully name and organize any aditional configuration or module files.

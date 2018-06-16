@@ -23,7 +23,8 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "jest": "^22.4.4",
-    "require-dir": "^1.0.0"
+    "require-dir": "^1.0.0",
+    "superagent": "^3.8.3"
   },
   "homepage": "https://github.com/stariel/11-express#readme"
 }
