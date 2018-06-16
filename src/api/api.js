@@ -49,7 +49,7 @@ router.delete('/api/v1/cats/:id', (req,res) => {
         let data = {id:req.params.id,deleted:success};
         sendJSON(res,data);
       })
-      .catch(console.error);
+      .catch( err => serverError(res,err) );
   }
 });
 
@@ -58,7 +58,7 @@ router.post('/api/v1/cats', (req,res) => {
   let record = new Cats(req.body);
   record.save()
     .then(data => sendJSON(res,data))
-    .catch(console.error);
+    .catch( err => serverError(res,err) );
 
 });
 
