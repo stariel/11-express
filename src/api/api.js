@@ -39,11 +39,10 @@ router.get('/api/v1/cats/:id', (req,res) => {
     Cats.findOne(req.params.id)
       .then( data => sendJSON(res,data) )
       .catch( function err(res, err) {
-        let error = { error:err };
         res.status = 404;
         res.statusMessage = 'Not Found';
         res.setHeader('Content-Type', 'application/json');
-        res.write( JSON.stringify(error) );
+        res.write( JSON.stringify(err) );
         res.end();
       } );
   }
