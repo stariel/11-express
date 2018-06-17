@@ -21,7 +21,7 @@ let sendJSON = (res,data) => {
 
 let serverError = (res,err) => {
   let error = { error:err };
-  res.statusCode = 500;
+  // res.statusCode = 500;
   res.statusMessage = 'Server Error';
   res.setHeader('Content-Type', 'application/json');
   res.write( JSON.stringify(error) );
@@ -38,7 +38,14 @@ router.get('/api/v1/cats/:id', (req,res) => {
   if ( req.params.id ) {
     Cats.findOne(req.params.id)
       .then( data => sendJSON(res,data) )
-      .catch( err => serverError(res,err) );
+      .catch( function err(res, err) {
+        let error = { error:err };
+        res.status = 404;
+        res.statusMessage = 'Not Found';
+        res.setHeader('Content-Type', 'application/json');
+        res.write( JSON.stringify(error) );
+        res.end();
+      } );
   }
 });
 
