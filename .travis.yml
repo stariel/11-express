@@ -4,7 +4,8 @@ node_js:
   - "9"
 
 before_script:
-- npm i 
+- npm i
+- npm start
 
 script:
   - npm run lint
