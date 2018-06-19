@@ -1,6 +1,15 @@
 'use strict';
 
 import superagent from 'superagent';
+import app from '../src/app.js';
+
+beforeAll( () => {
+  app.start(3001);
+});
+
+afterAll( () => {
+  app.stop();
+});
 
 describe('Express Web Server', () => {
 

@@ -3,7 +3,7 @@
 import express from 'express';
 const router = express.Router();
 
-const Cats = require('../models/cats');
+import Cats from '../models/cats';
 
 /**
  * Simple method to send a JSON response (all of the API methods will use this)
@@ -38,7 +38,7 @@ router.get('/api/v1/cats/:id', (req,res) => {
   if ( req.params.id ) {
     Cats.findOne(req.params.id)
       .then( data => sendJSON(res,data) )
-      .catch( function err(res, err) {
+      .catch( function err(err) {
         res.status = 404;
         res.statusMessage = 'Not Found';
         res.setHeader('Content-Type', 'application/json');
