@@ -21,7 +21,7 @@ let sendJSON = (res,data) => {
 
 let serverError = (res,err) => {
   let error = { error:err };
-  // res.statusCode = 500;
+  res.statusCode = 500;
   res.statusMessage = 'Server Error';
   res.setHeader('Content-Type', 'application/json');
   res.write( JSON.stringify(error) );
@@ -38,7 +38,7 @@ router.get('/api/v1/cats/:id', (req,res) => {
   if ( req.params.id ) {
     Cats.findOne(req.params.id)
       .then( data => sendJSON(res,data) )
-      .catch( function err(err) {
+      .catch( function err(res,err) {
         res.status = 404;
         res.statusMessage = 'Not Found';
         res.setHeader('Content-Type', 'application/json');
@@ -60,12 +60,23 @@ router.delete('/api/v1/cats/:id', (req,res) => {
 });
 
 router.post('/api/v1/cats', (req,res) => {
-
-  let record = new Cats(req.body);
-  record.save()
-    .then(data => sendJSON(res,data))
-    .catch( err => serverError(res,err) );
-
+  if (req.body) {
+    let record = new Cats(req.body);
+    record.save()
+      .then(data => sendJSON(res,data))
+      .catch( err => serverError(res,err) );
+  }
+  else {
+    (res,err) => {
+      let error = { error:err };
+      res.statusCode = 400;
+      res.statusMessage = 'Bad Request';
+      res.setHeader('Content-Type', 'application/json');
+      res.write( JSON.stringify(error) );
+      res.end();
+    };
+  }
 });
+
 
 export default router;
