@@ -1,0 +1,33 @@
+{
+  "name": "11-express",
+  "version": "1.0.0",
+  "description": "![cf](https://i.imgur.com/7v5ASc8.png) 11: Express and Babel ======",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test-watch": "jest --watchAll",
+    "lint": "eslint **/*.js",
+    "test": "jest --coverage --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stariel/11-express.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-env": "^2.4.1",
+    "babel-eslint": "^8.2.3",
+    "babel-register": "^6.26.0",
+    "dotenv": "^5.0.1",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
+    "jest": "^22.4.4",
+    "require-dir": "^1.0.0",
+    "superagent": "^3.8.3",
+    "supertest": "^3.1.0"
+  },
+  "homepage": "https://github.com/stariel/11-express#readme"
+}
