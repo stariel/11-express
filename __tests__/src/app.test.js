@@ -1,76 +1,71 @@
-import superAgent from 'superagent';
-const app = require('../../src/app');
-const apiUrl = 'http://localhost:3001/api/v1/notes';
+'use strict';
 
-beforeEach(() => {
-  app.start(3001);
-});
+import app from '../../src/app.js';
+import supertest from 'supertest';
 
-afterEach(() => {
-  app.stop();
-});
+const mockRequest = supertest(app.server);
+const apiUrl = '/api/v1/cats'
 
 describe('api module', () => {
 
-  xit('should get zero notes', () => {
+  it('should get no cats', () => {
 
-    // note that returning promise makes this test async, could also use 'done' argument
-    return superAgent
+    return mockRequest
       .get(apiUrl)
       .then(results => {
         
-        const notes = JSON.parse(results.text);
+        const cats = JSON.parse(results.text);
 
-        expect(notes).toEqual({});
+        expect(cats).toEqual({});
         
       });
 
   });
 
-  xit('should create a note', (done) => {
+  it('should create a cat', (done) => {
 
-    const newNote = {title:'milk', content: 'chocolate'};
+    const java = {name:'Java', age: '16'};
 
-    superAgent.post(apiUrl).send(newNote).then(results => {
+    mockRequest.post(apiUrl).send(java).then(results => {
 
-      const note = JSON.parse(results.text);
+      const java = JSON.parse(results.text);
 
-      expect(note.title).toBe('milk');
+      expect(java.name).toBe('Java');
 
-      done(); // using done argument vs. returning promise but both work
+      done();
     });
 
   });
 
-  xit('should get all notes', () => {
+  it('should get all notes', () => {
 
-    const newNote = {title:'milk', content: 'chocolate'};
+    const lyra = {name:'Lyra', age: '13'};
 
-    return superAgent.post(apiUrl).send(newNote).then(results => {
+    return mockRequest.post(apiUrl).send(lyra).then(results => {
 
-      return superAgent.get(apiUrl).then(results => {
+      return mockRequest.get(apiUrl).then(results => {
         
-        const notes = JSON.parse(results.text);
+        const lyra = JSON.parse(results.text);
 
-        expect(Object.keys(notes).length).toBe(2);
+        expect(Object.keys(lyra).length).toBe(2);
       });
     });
 
   });
 
-  xit('should get single note', () => {
+  it('should get single note', () => {
 
-    const newNote = {title:'milk', content: 'chocolate'};
+    const chat = {name:'Chat', age: '12'};
 
-    return superAgent.post(apiUrl).send(newNote).then(results => {
+    return mockRequest.post(apiUrl).send(chat).then(results => {
 
-      const postedNote = JSON.parse(results.text);
+      const postedCat = JSON.parse(results.text);
 
-      return superAgent.get(apiUrl + '/' + postedNote.id).then(results => {
+      return mockRequest.get(apiUrl + '/' + postedCat.id).then(results => {
         
-        const retrievedNote = JSON.parse(results.text);
+        const retrievedCat = JSON.parse(results.text);
 
-        expect(retrievedNote.content).toBe('chocolate');
+        expect(retrievedCat.age).toBe('12');
       });
     });
 

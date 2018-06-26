@@ -61,21 +61,18 @@ router.delete('/api/v1/cats/:id', (req,res) => {
 });
 
 router.post('/api/v1/cats', (req,res) => {
-  if (req.body) {
+  if (!req.body) {
+    res.statusCode = 400;
+    res.statusMessage = 'Bad Request';
+    res.setHeader('Content-Type', 'application/json');
+    res.write( JSON.stringify(err) );
+    res.end();
+  }
+  else {
     let record = new Cats(req.body);
     record.save()
       .then(data => sendJSON(res,data))
       .catch( err => serverError(res,err) );
-  }
-  else {
-    (res,err) => {
-      let error = { error:err };
-      res.statusCode = 400;
-      res.statusMessage = 'Bad Request';
-      res.setHeader('Content-Type', 'application/json');
-      res.write( JSON.stringify(error) );
-      res.end();
-    };
   }
 });
 

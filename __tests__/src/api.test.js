@@ -31,17 +31,25 @@ describe('Express Web Server', () => {
       .catch(console.err);
   });
 
-xit('should respond with bad request if no request body was provided or the body was invalid', () => {
-    let obj = {};
+  it('should respond with bad request if no request body was provided', () => {
     return mockRequest.post('/api/v1/cats')
-      .send(obj)
-      .then(response => {
-        expect(response.statusCode).toEqual(500);
+      .catch(response => {
+        expect(response.statusCode).toEqual(400);
       })
       .catch(console.err);
   });
 
-  xit('should respond with the body content for a post request with a valid body', () => {
+  it('should respond with bad request if no request body was invalid', () => {
+    let obj = {};
+    return mockRequest.post('/api/v1/cats')
+      .send(obj)
+      .catch(response => {
+        expect(response.statusCode).toEqual(400);
+      })
+      .catch(console.err);
+  });
+
+  it('should respond with the body content for a post request with a valid body', () => {
     let obj = {name:'Bob', age: '12'};
     return mockRequest.post('/api/v1/cats')
       .send(obj)
