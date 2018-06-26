@@ -1,28 +1,22 @@
 'use strict';
 
-import superagent from 'superagent';
-import app from '../src/app.js';
+import app from '../../src/app.js';
+import supertest from 'supertest';
 
-beforeAll( () => {
-  app.start(3000);
-});
-
-afterAll( () => {
-  app.stop();
-});
+const mockRequest = supertest(app.server);
 
 describe('Express Web Server', () => {
 
   it('handles an invalid get request with a 404', () => {
 
-    return superagent.get('http://localhost:3000/blah')
+    return mockRequest.get('/blah')
       .then()
       .catch(res => expect(res.status).toEqual(404));
 
   });
   it('handles an invalid get request with a 404', () => {
 
-    return superagent.get('http://localhost:3000/api/v1/cats/blah')
+    return mockRequest.get('/api/v1/cats/blah')
       .then()
       .catch(res => expect(res.status).toEqual(404));
 
@@ -30,16 +24,16 @@ describe('Express Web Server', () => {
 
   it('handles a valid get request', () => {
 
-    return superagent.get('http://localhost:3000/api/v1/cats')
+    return mockRequest.get('/api/v1/cats')
       .then(response => {
         expect(response.statusCode).toEqual(200);
       })
       .catch(console.err);
   });
 
-  it('should respond with bad request if no request body was provided or the body was invalid', () => {
+xit('should respond with bad request if no request body was provided or the body was invalid', () => {
     let obj = {};
-    return superagent.post('http://localhost:3000/api/v1/cats')
+    return mockRequest.post('/api/v1/cats')
       .send(obj)
       .then(response => {
         expect(response.statusCode).toEqual(500);
@@ -47,9 +41,9 @@ describe('Express Web Server', () => {
       .catch(console.err);
   });
 
-  it('should respond with the body content for a post request with a valid body', () => {
+  xit('should respond with the body content for a post request with a valid body', () => {
     let obj = {name:'Bob', age: '12'};
-    return superagent.post('http://localhost:3000/api/v1/cats')
+    return mockRequest.post('/api/v1/cats')
       .send(obj)
       .then(response => {
         expect(response.text).toContain('Bob');

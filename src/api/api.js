@@ -1,6 +1,7 @@
 'use strict';
 
 import express from 'express';
+
 const router = express.Router();
 
 import Cats from '../models/cats';
@@ -38,8 +39,8 @@ router.get('/api/v1/cats/:id', (req,res) => {
   if ( req.params.id ) {
     Cats.findOne(req.params.id)
       .then( data => sendJSON(res,data) )
-      .catch( function err(res,err) {
-        res.status = 404;
+      .catch( function err(err) {
+        res.statusCode = 404;
         res.statusMessage = 'Not Found';
         res.setHeader('Content-Type', 'application/json');
         res.write( JSON.stringify(err) );
